@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.dao.ProcessTypeDao">
+
+    <resultMap type="com.paper.ssm.entity.ProcessType" id="ProcessTypeMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ProcessTypeMap">
+        select
+          id, parent_id, title, description
+        from paper.process_type
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ProcessTypeMap">
+        select
+          id, parent_id, title, descriptio
+        from paper.process_type
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ProcessTypeMap">
+        select
+        id, parent_id, title, description
+        from paper.process_type
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into paper.process_type(parent_id, title, description)
+        values (#{parentId}, #{title}, #{description})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into paper.process_type(parent_id, title, description)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.parentId}, #{entity.title}, #{entity.description})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into paper.process_type(parent_id, title, description)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.parentId}, #{entity.title}, #{entity.description})
+        </foreach>
+        on duplicate key update
+        parent_id = values(parent_id) , title = values(title) , description = values(description)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update paper.process_type
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from paper.process_type where id = #{id}
+    </delete>
+
+</mapper>
