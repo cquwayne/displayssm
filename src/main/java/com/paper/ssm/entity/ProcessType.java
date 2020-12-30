@@ -4,10 +4,10 @@ package com.paper.ssm.entity;
  * (ProcessType)实体类
  *
  * @author makejava
- * @since 2020-12-29 20:53:29
+ * @since 2020-12-30 10:37:15
  */
 public class ProcessType {
-    private static final long serialVersionUID = -33545313123232312L;
+    private static final long serialVersionUID = 643334748481876441L;
     /**
      * 场景模型类型id
      */

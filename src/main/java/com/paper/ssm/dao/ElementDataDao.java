@@ -81,4 +81,5 @@ public interface ElementDataDao {
      */
     int deleteById(Long id);
 
+    List<ElementData> selectElementDataListBySceneId(Long sceneId);
 }

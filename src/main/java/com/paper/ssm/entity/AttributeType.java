@@ -4,10 +4,10 @@ package com.paper.ssm.entity;
  * (AttributeType)实体类
  *
  * @author makejava
- * @since 2020-12-29 20:53:28
+ * @since 2020-12-30 10:37:14
  */
 public class AttributeType {
-    private static final long serialVersionUID = -88204951605305622L;
+    private static final long serialVersionUID = -13978847391754938L;
     /**
      * 元数据类型id
      */

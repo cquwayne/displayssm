@@ -4,10 +4,10 @@ package com.paper.ssm.entity;
  * (Attribute)实体类
  *
  * @author makejava
- * @since 2020-12-29 20:53:27
+ * @since 2020-12-30 10:37:15
  */
 public class Attribute {
-    private static final long serialVersionUID = -19519695433936761L;
+    private static final long serialVersionUID = 191742744672436643L;
     /**
      * 属性id
      */
@@ -19,7 +19,7 @@ public class Attribute {
     /**
      * 所属要素
      */
-    private Long elementTypeId;
+    private Long elementId;
     /**
      * 属性元数据信息
      */
@@ -54,12 +54,12 @@ public class Attribute {
         this.title = title;
     }
 
-    public Long getElementTypeId() {
-        return elementTypeId;
+    public Long getElementId() {
+        return elementId;
     }
 
-    public void setElementTypeId(Long elementTypeId) {
-        this.elementTypeId = elementTypeId;
+    public void setElementId(Long elementId) {
+        this.elementId = elementId;
     }
 
     public String getMetadataInformation() {

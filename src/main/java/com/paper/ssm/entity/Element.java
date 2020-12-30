@@ -4,10 +4,10 @@ package com.paper.ssm.entity;
  * (Element)实体类
  *
  * @author makejava
- * @since 2020-12-29 20:53:27
+ * @since 2020-12-30 10:37:15
  */
 public class Element {
-    private static final long serialVersionUID = 325814939590594268L;
+    private static final long serialVersionUID = 216255894647920834L;
     /**
      * 要素id
      */

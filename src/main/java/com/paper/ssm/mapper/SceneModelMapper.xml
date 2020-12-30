@@ -3,26 +3,45 @@
 <mapper namespace="com.paper.ssm.dao.SceneModelDao">
 
     <resultMap type="com.paper.ssm.entity.SceneModel" id="SceneModelMap">
-        <result property="id" column="id" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="processTypeId" column="process_type_id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap type="com.paper.ssm.entity.SceneModel" id="SceneModelAllMap">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="processTypeId" column="process_type_id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <association property="processType" column="process_type_Id" select="com.paper.ssm.dao.ProcessTypeDao.queryById"/>
+        <association property="parent" column="parent_Id" select="com.paper.ssm.dao.SceneModelDao.querySimpleById"/>
+        <collection column="id" property="elementDataList" ofType="com.paper.ssm.entity.ElementData"
+                    javaType="java.util.ArrayList" select="com.paper.ssm.dao.ElementDataDao.selectElementDataListBySceneId"/>
+    </resultMap>
+
     <!--查询单个-->
-    <select id="queryById" resultMap="SceneModelMap">
+    <select id="queryById" resultMap="SceneModelAllMap">
         select
-          id, title, process_type_id, description
+          *
         from paper.scene_model
         where id = #{id}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="SceneModelMap">
+    <select id="querySimpleById" resultMap="SceneModelMap">
         select
-          id, title, process_type_id, description
+          *
         from paper.scene_model
-        limit #{offset}, #{limit}
+        where id = #{id}
+    </select>
+
+    <!--查询场景所有数据包含要素数据-->
+    <select id="queryAllData" resultMap="SceneModelMap">
+        select
+          *
+        from paper.scene_model
     </select>
 
     <!--通过实体作为筛选条件查询-->
@@ -30,20 +49,20 @@
         select
         id, title, process_type_id, description
         from paper.scene_model
-        <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="title != null and title != ''">
-                and title = #{title}
-            </if>
-            <if test="processTypeId != null">
-                and process_type_id = #{processTypeId}
-            </if>
-            <if test="description != null and description != ''">
-                and description = #{description}
-            </if>
-        </where>
+<!--        <where>-->
+<!--            <if test="id != null">-->
+<!--                and id = #{id}-->
+<!--            </if>-->
+<!--            <if test="title != null and title != ''">-->
+<!--                and title = #{title}-->
+<!--            </if>-->
+<!--            <if test="processTypeId != null">-->
+<!--                and process_type_id = #{processTypeId}-->
+<!--            </if>-->
+<!--            <if test="description != null and description != ''">-->
+<!--                and description = #{description}-->
+<!--            </if>-->
+<!--        </where>-->
     </select>
 
     <!--新增所有列-->

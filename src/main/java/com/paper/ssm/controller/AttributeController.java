@@ -4,9 +4,11 @@ import com.paper.ssm.dao.AttributeDao;
 import com.paper.ssm.entity.Attribute;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Attribute)表控制层
@@ -34,4 +36,8 @@ public class AttributeController {
         return this.attributeDao.queryById(id);
     }
 
+    @GetMapping("list")
+    public List<Attribute> selectListByEleId(@RequestParam Long eleId) {
+        return this.attributeDao.queryByEleId(eleId);
+    }
 }

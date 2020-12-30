@@ -2,9 +2,13 @@ package com.paper.ssm.controller;
 
 import com.paper.ssm.dao.SceneModelDao;
 import com.paper.ssm.entity.SceneModel;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (SceneModel)表控制层
@@ -27,9 +31,14 @@ public class SceneModelController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public SceneModel selectOne(@PathVariable Long id) {
         return this.sceneModelDao.queryById(id);
+    }
+
+    @GetMapping("list")
+    public List<SceneModel> selectList() {
+        return this.sceneModelDao.queryAll();
     }
 
 }

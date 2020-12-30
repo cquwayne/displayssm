@@ -4,10 +4,10 @@ package com.paper.ssm.entity;
  * (AttributeMetadata)实体类
  *
  * @author makejava
- * @since 2020-12-29 20:53:29
+ * @since 2020-12-30 10:37:14
  */
 public class AttributeMetadata {
-    private static final long serialVersionUID = 628709356060759356L;
+    private static final long serialVersionUID = 714604569082859140L;
     /**
      * 元数据id
      */

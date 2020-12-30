@@ -3,7 +3,7 @@
 <mapper namespace="com.paper.ssm.dao.ProcessTypeDao">
 
     <resultMap type="com.paper.ssm.entity.ProcessType" id="ProcessTypeMap">
-        <result property="id" column="id" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
         <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>

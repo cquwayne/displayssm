@@ -81,4 +81,5 @@ public interface AttributeDao {
      */
     int deleteById(Long id);
 
+    List<Attribute> queryByEleId(Long eleId);
 }

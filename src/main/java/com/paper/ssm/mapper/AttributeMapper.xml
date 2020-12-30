@@ -5,7 +5,7 @@
     <resultMap type="com.paper.ssm.entity.Attribute" id="AttributeMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
-        <result property="elementTypeId" column="element_type_id" jdbcType="INTEGER"/>
+        <result property="elementId" column="element_id" jdbcType="INTEGER"/>
         <result property="metadataInformation" column="metadata_information" jdbcType="VARCHAR"/>
         <result property="value" column="value" jdbcType="VARCHAR"/>
         <result property="generic" column="generic" jdbcType="OTHER"/>
@@ -15,7 +15,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="AttributeMap">
         select
-          id, title, element_type_id, metadata_information, value, generic, description
+          id, title, element_id, metadata_information, value, generic, description
         from paper.attribute
         where id = #{id}
     </select>
@@ -23,15 +23,22 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AttributeMap">
         select
-          id, title, element_type_id, metadata_information, value, generic, description
+          id, title, element_id, metadata_information, value, generic, description
         from paper.attribute
         limit #{offset}, #{limit}
     </select>
 
+    <!--查询某种要素对应的所有属性-->
+    <select id="queryByEleId" resultMap="AttributeMap">
+        select
+          id, title, element_id, metadata_information, value, generic, description
+        from paper.attribute
+        where element_id=#{eleId}
+    </select>
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="AttributeMap">
         select
-        id, title, element_type_id, metadata_information, value, generic, description
+        id, title, element_id, metadata_information, value, generic, description
         from paper.attribute
         <where>
             <if test="id != null">
@@ -41,7 +48,7 @@
                 and title = #{title}
             </if>
             <if test="elementTypeId != null">
-                and element_type_id = #{elementTypeId}
+                and element_id = #{elementTypeId}
             </if>
             <if test="metadataInformation != null and metadataInformation != ''">
                 and metadata_information = #{metadataInformation}
@@ -60,12 +67,12 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.attribute(title, element_type_id, metadata_information, value, generic, description)
+        insert into paper.attribute(title, element_id, metadata_information, value, generic, description)
         values (#{title}, #{elementTypeId}, #{metadataInformation}, #{value}, #{generic}, #{description})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.attribute(title, element_type_id, metadata_information, value, generic, description)
+        insert into paper.attribute(title, element_id, metadata_information, value, generic, description)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.title}, #{entity.elementTypeId}, #{entity.metadataInformation}, #{entity.value},
@@ -74,14 +81,14 @@
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.attribute(title, element_type_id, metadata_information, value, generic, description)
+        insert into paper.attribute(title, element_id, metadata_information, value, generic, description)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.title}, #{entity.elementTypeId}, #{entity.metadataInformation}, #{entity.value},
             #{entity.generic}, #{entity.description})
         </foreach>
         on duplicate key update
-        title = values(title) , element_type_id = values(element_type_id) , metadata_information =
+        title = values(title) , element_id = values(element_id) , metadata_information =
         values(metadata_information) , value = values(value) , generic = values(generic) , description =
         values(description)
     </insert>
@@ -94,7 +101,7 @@
                 title = #{title},
             </if>
             <if test="elementTypeId != null">
-                element_type_id = #{elementTypeId},
+                element_id = #{elementTypeId},
             </if>
             <if test="metadataInformation != null and metadataInformation != ''">
                 metadata_information = #{metadataInformation},

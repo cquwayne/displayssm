@@ -4,10 +4,10 @@ package com.paper.ssm.entity;
  * (ElementData)实体类
  *
  * @author makejava
- * @since 2020-12-29 20:53:30
+ * @since 2020-12-30 10:37:15
  */
 public class ElementData {
-    private static final long serialVersionUID = 704051841649142640L;
+    private static final long serialVersionUID = -35483933811566603L;
     /**
      * 记录id
      */
@@ -20,8 +20,9 @@ public class ElementData {
      * 要素id
      */
     private Long elementId;
+    private Element element;
     /**
-     * 属性及其值
+     * 要素属性及其值
      */
     private String attributeValue;
 
@@ -48,6 +49,14 @@ public class ElementData {
 
     public void setElementId(Long elementId) {
         this.elementId = elementId;
+    }
+
+    public Element getElement() {
+        return element;
+    }
+
+    public void setElement(Element element) {
+        this.element = element;
     }
 
     public String getAttributeValue() {

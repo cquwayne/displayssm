@@ -7,6 +7,7 @@
         <result property="sceneId" column="scene_id" jdbcType="INTEGER"/>
         <result property="elementId" column="element_id" jdbcType="INTEGER"/>
         <result property="attributeValue" column="attribute_value" jdbcType="VARCHAR"/>
+        <association property="element" column="elementId" select="com.paper.ssm.dao.ElementDao.queryById"></association>
     </resultMap>
 
     <!--查询单个-->
@@ -15,6 +16,13 @@
           id, scene_id, element_id, attribute_value
         from paper.element_data
         where id = #{id}
+    </select>
+
+    <select id="selectElementDataListBySceneId" resultMap="ElementDataMap">
+        select
+          id, scene_id, element_id, attribute_value
+        from paper.element_data
+        where scene_id = #{sceneId}
     </select>
 
     <!--查询指定行数据-->
