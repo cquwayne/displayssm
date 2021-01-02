@@ -4,6 +4,7 @@ import com.paper.ssm.dao.ElementDao;
 import com.paper.ssm.entity.Element;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -30,7 +31,7 @@ public class ElementController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public Element selectOne(Long id) {
+    public Element selectOne(@RequestParam Long id) {
         return this.elementDao.queryById(id);
     }
 
