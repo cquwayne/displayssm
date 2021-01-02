@@ -3,7 +3,7 @@ package com.paper.ssm.entity;
 /**
  * (Attribute)实体类
  *
- * @author makejava
+ * @author xjl
  * @since 2020-12-30 10:37:15
  */
 public class Attribute {
