@@ -8,6 +8,9 @@
         <result property="processTypeId" column="process_type_id" jdbcType="INTEGER"/>
         <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
+        <association property="processType" column="process_type_id"
+                     select="com.paper.ssm.dao.ProcessTypeDao.queryById"/>
+        <association property="parent" column="parent_Id" select="com.paper.ssm.dao.SceneModelDao.queryTitleById"/>
     </resultMap>
 
     <resultMap type="com.paper.ssm.entity.SceneModel" id="SceneModelAllMap">
@@ -20,6 +23,11 @@
         <association property="parent" column="parent_Id" select="com.paper.ssm.dao.SceneModelDao.querySimpleById"/>
         <collection column="id" property="elementDataList" ofType="com.paper.ssm.entity.ElementData"
                     javaType="java.util.ArrayList" select="com.paper.ssm.dao.ElementDataDao.selectElementDataListBySceneId"/>
+    </resultMap>
+
+    <resultMap type="com.paper.ssm.entity.SceneModel" id="SimpleSceneModel">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
@@ -37,6 +45,13 @@
         where id = #{id}
     </select>
 
+    <select id="queryTitleById" resultMap="SimpleSceneModel">
+        select
+          title
+        from paper.scene_model
+        where id = #{id}
+    </select>
+
     <!--查询场景所有数据包含要素数据-->
     <select id="queryAllData" resultMap="SceneModelMap">
         select
@@ -47,7 +62,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="SceneModelMap">
         select
-        id, title, process_type_id, description
+        *
         from paper.scene_model
 <!--        <where>-->
 <!--            <if test="id != null">-->

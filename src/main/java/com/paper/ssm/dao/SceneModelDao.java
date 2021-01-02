@@ -25,6 +25,8 @@ public interface SceneModelDao {
 
     SceneModel querySimpleById(Long id);
 
+    SceneModel queryTitleById(Long id);
+
     /**
      * 查询指定行数据
      *
