@@ -2,6 +2,7 @@ package com.paper.ssm.controller;
 
 import com.paper.ssm.dao.AttributeTypeDao;
 import com.paper.ssm.entity.AttributeType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import javax.annotation.Resource;
  * @author makejava
  * @since 2020-12-29 20:53:28
  */
+@CrossOrigin
 @RestController
 @RequestMapping("attributeType")
 public class AttributeTypeController {

@@ -2,10 +2,7 @@ package com.paper.ssm.controller;
 
 import com.paper.ssm.dao.ElementDao;
 import com.paper.ssm.entity.Element;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -15,6 +12,7 @@ import javax.annotation.Resource;
  * @author makejava
  * @since 2020-12-29 20:53:27
  */
+@CrossOrigin
 @RestController
 @RequestMapping("element")
 public class ElementController {

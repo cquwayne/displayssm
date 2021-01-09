@@ -2,10 +2,7 @@ package com.paper.ssm.controller;
 
 import com.paper.ssm.dao.AttributeDao;
 import com.paper.ssm.entity.Attribute;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -16,6 +13,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-12-29 20:53:27
  */
+@CrossOrigin
 @RestController
 @RequestMapping("attribute")
 public class AttributeController {
@@ -34,6 +32,11 @@ public class AttributeController {
     @GetMapping("selectOne")
     public Attribute selectOne(Long id) {
         return this.attributeDao.queryById(id);
+    }
+
+    @PostMapping
+    public int Insert(@RequestBody Attribute attribute) {
+        return this.attributeDao.insert(attribute);
     }
 
     @GetMapping("list")
