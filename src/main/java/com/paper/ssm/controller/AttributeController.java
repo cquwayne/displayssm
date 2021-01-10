@@ -29,18 +29,29 @@ public class AttributeController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public Attribute selectOne(Long id) {
+    @GetMapping("/{id}")
+    public Attribute queryById(@PathVariable Long id) {
         return this.attributeDao.queryById(id);
     }
 
     @PostMapping
-    public int Insert(@RequestBody Attribute attribute) {
+    public int insert(@RequestBody Attribute attribute) {
         return this.attributeDao.insert(attribute);
     }
 
+    @PutMapping
+    public int put(@RequestBody Attribute attribute) {
+        return this.attributeDao.update(attribute);
+    }
+
+    @DeleteMapping
+    public int deleteById(@RequestBody Attribute attribute) {
+//        return this.attributeDao.deleteById(attribute.getId());
+        return 0;
+    }
+
     @GetMapping("list")
-    public List<Attribute> selectListByEleId(@RequestParam Long eleId) {
-        return this.attributeDao.queryByEleId(eleId);
+    public List<Attribute> selectListByEleId(@RequestParam Long elementId) {
+        return this.attributeDao.queryByEleId(elementId);
     }
 }
