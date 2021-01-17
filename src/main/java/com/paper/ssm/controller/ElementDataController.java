@@ -41,11 +41,6 @@ public class ElementDataController {
 
     @PutMapping("updateOne")
     public int updateOne(@RequestBody ElementData elementData) {
-        System.out.println(elementData.getId());
-        System.out.println(elementData.getSceneId());
-        System.out.println(elementData.getElementId());
-        System.out.println(elementData.getElement());
-        System.out.println(elementData.getAttributeValue());
         return this.elementDataDao.update(elementData);
     }
 
