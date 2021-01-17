@@ -65,6 +65,10 @@
         </where>
     </select>
 
+    <select id="queryMultiValue" resultType="com.paper.ssm.entity.Attribute">
+        select title,`value` from paper.attribute where `value`!=''
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into paper.attribute(title, element_id, metadata_information, value, generic, description)

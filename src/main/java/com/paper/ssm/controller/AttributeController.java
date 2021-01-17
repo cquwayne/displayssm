@@ -33,6 +33,11 @@ public class AttributeController {
     public Attribute queryById(@PathVariable Long id) {
         return this.attributeDao.queryById(id);
     }
+    @GetMapping("multiValue")
+    public List<Attribute> queryMultiValue() {
+        return this.attributeDao.queryMultiValue();
+    }
+
 
     @PostMapping
     public int insert(@RequestBody Attribute attribute) {

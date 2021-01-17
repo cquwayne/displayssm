@@ -82,4 +82,6 @@ public interface AttributeDao {
     int deleteById(Long id);
 
     List<Attribute> queryByEleId(Long eleId);
+
+    List<Attribute> queryMultiValue();
 }
