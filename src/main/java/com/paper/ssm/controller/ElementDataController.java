@@ -43,5 +43,9 @@ public class ElementDataController {
     public int updateOne(@RequestBody ElementData elementData) {
         return this.elementDataDao.update(elementData);
     }
+    @DeleteMapping("deleteOne")
+    public int deleteOne(@RequestParam Long elementDataId) {
+        return this.elementDataDao.deleteById(elementDataId);
+    }
 
 }
