@@ -39,6 +39,11 @@ public class ElementDataController {
         return this.elementDataDao.selectElementDataListBySceneId(sceneModelId);
     }
 
+    @PostMapping("insertOne")
+    public int insertOne(@RequestBody ElementData elementData) {
+        return this.elementDataDao.insert(elementData);
+    }
+
     @PutMapping("updateOne")
     public int updateOne(@RequestBody ElementData elementData) {
         return this.elementDataDao.update(elementData);
