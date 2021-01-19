@@ -7,6 +7,10 @@
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="processTypeId" column="process_type_id" jdbcType="INTEGER"/>
         <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="operator" column="operator" jdbcType="VARCHAR"/>
+        <result property="executionTime" column="execution_time" jdbcType="VARCHAR"/>
+        <result property="region" column="region" jdbcType="VARCHAR"/>
+        <result property="dataSource" column="data_source" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <association property="processType" column="process_type_id"
                      select="com.paper.ssm.dao.ProcessTypeDao.queryById"/>
@@ -18,6 +22,10 @@
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="processTypeId" column="process_type_id" jdbcType="INTEGER"/>
         <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="operator" column="operator" jdbcType="VARCHAR"/>
+        <result property="executionTime" column="execution_time" jdbcType="VARCHAR"/>
+        <result property="region" column="region" jdbcType="VARCHAR"/>
+        <result property="dataSource" column="data_source" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <association property="processType" column="process_type_Id" select="com.paper.ssm.dao.ProcessTypeDao.queryById"/>
         <association property="parent" column="parent_Id" select="com.paper.ssm.dao.SceneModelDao.querySimpleById"/>
@@ -82,20 +90,20 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.scene_model(title,parent_id parent_id,process_type_id, description)
-        values (#{title}, #{parentId}, #{processTypeId}, #{description})
+        insert into paper.scene_model(title,parent_id,process_type_id, operator, execution_time, region, data_source, description)
+        values (#{title}, #{parentId}, #{processTypeId}, #{operator}, #{executionTime}, #{region}, #{dataSource}, #{description})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.scene_model(title, parent_id,process_type_id, description)
+        insert into paper.scene_model(title, parent_id,process_type_id, operator, execution_time, region, data_source, description)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.title}, #{entity.processTypeId}, #{entity.description})
+            (#{entity.title}, #{entity.processTypeId}, #{entity.processTypeId}, #{entity.description})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.scene_model(title, parent_id,process_type_id, description)
+        insert into paper.scene_model(title,parent_id,process_type_id, operator, execution_time, region, data_source, description)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.title}, #{entity.processTypeId}, #{entity.description})
@@ -113,6 +121,18 @@
             </if>
             <if test="processTypeId != null">
                 process_type_id = #{processTypeId},
+            </if>
+            <if test="operator != null">
+                operator = #{operator},
+            </if>
+            <if test="executionTime != null">
+                execution_time = #{executionTime},
+            </if>
+            <if test="region != null">
+                region = #{region},
+            </if>
+            <if test="dataSource != null">
+                data_source = #{dataSource},
             </if>
             <if test="description != null and description != ''">
                 description = #{description},

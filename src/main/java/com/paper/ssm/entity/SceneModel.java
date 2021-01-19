@@ -28,6 +28,10 @@ public class SceneModel {
      */
     private Long processTypeId;
     private ProcessType processType;
+    private String operator;
+    private String executionTime;
+    private String region;
+    private String dataSource;
     /**
      * 场景模型描述
      */
@@ -84,6 +88,38 @@ public class SceneModel {
 
     public void setProcessType(ProcessType processType) {
         this.processType = processType;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public String getExecutionTime() {
+        return executionTime;
+    }
+
+    public void setExecutionTime(String executionTime) {
+        this.executionTime = executionTime;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(String dataSource) {
+        this.dataSource = dataSource;
     }
 
     public String getDescription() {
