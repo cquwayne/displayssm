@@ -28,22 +28,8 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ProcessTypeMap">
         select
-        id, parent_id, title, description
+        *
         from paper.process_type
-        <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="parentId != null">
-                and parent_id = #{parentId}
-            </if>
-            <if test="title != null and title != ''">
-                and title = #{title}
-            </if>
-            <if test="description != null and description != ''">
-                and description = #{description}
-            </if>
-        </where>
     </select>
 
     <!--新增所有列-->

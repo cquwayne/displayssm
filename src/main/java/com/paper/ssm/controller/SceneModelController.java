@@ -39,4 +39,14 @@ public class SceneModelController {
         return this.sceneModelDao.queryAll();
     }
 
+    @PostMapping("insertOne")
+    public int insertOne(@RequestBody SceneModel sceneModel) {
+        return this.sceneModelDao.insert(sceneModel);
+    }
+
+    @PutMapping("updateOne")
+    public int updateOne(@RequestBody SceneModel sceneModel) {
+        return this.sceneModelDao.update(sceneModel);
+    }
+
 }

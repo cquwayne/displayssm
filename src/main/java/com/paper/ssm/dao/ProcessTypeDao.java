@@ -35,11 +35,9 @@ public interface ProcessTypeDao {
 
     /**
      * 通过实体作为筛选条件查询
-     *
-     * @param processType 实例对象
      * @return 对象列表
      */
-    List<ProcessType> queryAll(ProcessType processType);
+    List<ProcessType> queryAll();
 
     /**
      * 新增数据

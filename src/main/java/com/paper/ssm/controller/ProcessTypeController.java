@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (ProcessType)表控制层
@@ -36,4 +37,8 @@ public class ProcessTypeController {
         return this.processTypeDao.queryById(id);
     }
 
+    @GetMapping("list")
+    public List<ProcessType> queryAll(){
+        return this.processTypeDao.queryAll();
+    }
 }
