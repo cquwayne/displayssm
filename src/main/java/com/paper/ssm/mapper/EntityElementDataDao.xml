@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.dao.EntityElementDataDao">
+
+    <resultMap type="com.paper.ssm.entity.EntityElementData" id="EntityElementDataMap">
+        <result property="modelEntityId" column="model_entity_id" jdbcType="VARCHAR"/>
+        <result property="elementId" column="element_id" jdbcType="INTEGER"/>
+        <result property="attributeValue" column="attribute_value" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryByModelEntityId" resultMap="EntityElementDataMap">
+        select model_entity_id,
+               element_id,
+               attribute_value
+        from paper.entity_element_data
+        where model_entity_id = #{modelEntityId}
+    </select>
+
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="EntityElementDataMap">
+        select model_entity_id,
+               element_id,
+               attribute_value
+        from paper.entity_element_data limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="EntityElementDataMap">
+        select
+        model_entity_id, element_id, attribute_value
+        from paper.entity_element_data
+        <where>
+            <if test="modelEntityId != null">
+                and model_entity_id = #{modelEntityId}
+            </if>
+            <if test="elementId != null">
+                and element_id = #{elementId}
+            </if>
+            <if test="attributeValue != null and attributeValue != ''">
+                and attribute_value = #{attributeValue}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id">
+        insert into paper.entity_element_data(model_entity_id, element_id, attribute_value)
+        values (#{modelEntityId}, #{elementId}, #{attributeValue})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into paper.entity_element_data(model_entity_id, element_id, attribute_value)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.modelEntityId}, #{entity.elementId}, #{entity.attributeValue})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into paper.entity_element_data(model_entity_id, element_id, attribute_value)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.modelEntityId}, #{entity.elementId}, #{entity.attributeValue})
+        </foreach>
+        on duplicate key update
+        model_entity_id = values(model_entity_id) , element_id = values(element_id) , attribute_value =
+        values(attribute_value)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update paper.entity_element_data
+        <set>
+            <if test="modelEntityId != null">
+                model_entity_id = #{modelEntityId},
+            </if>
+            <if test="elementId != null">
+                element_id = #{elementId},
+            </if>
+            <if test="attributeValue != null and attributeValue != ''">
+                attribute_value = #{attributeValue},
+            </if>
+        </set>
+        where modelEntityId = #{modelEntityId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from paper.entity_element_data
+        where modelEntityId = #{modelEntityId}
+    </delete>
+
+</mapper>
