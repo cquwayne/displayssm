@@ -39,8 +39,6 @@ public class ProcessEntityController {
     @Resource
     private EntityElementDataDao entityElementDataDao;
 
-    @Resource
-    private ProcessEntityController processEntityController;
     /**
      * 通过主键查询单条数据
      *
