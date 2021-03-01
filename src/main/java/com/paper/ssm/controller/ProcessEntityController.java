@@ -54,10 +54,12 @@ public class ProcessEntityController {
     @Transactional
     public int postOne(@RequestBody ProcessEntity processEntity) {
         if (this.processEntityDao.queryById(processEntity.getId())!=null) {
-            System.out.println(1);
-            return 0;
+            if (this.updateOne(processEntity)!=null){
+                return 1;
+            } else {
+                return 0;
+            }
         }
-        System.out.println(2);
         int flag0,flag1=0,flag2=0,flag3=0,flag4=0;
         flag0 = this.processEntityDao.insert(processEntity);
         List<Node> nodes = processEntity.getNodeList();
@@ -87,6 +89,15 @@ public class ProcessEntityController {
 
     }
 
+    @PutMapping("")
+    @Transactional
+    public ProcessEntity updateOne(@RequestBody ProcessEntity processEntity) {
+        if (this.processEntityDao.update(processEntity)==1) {
+            return this.processEntityDao.queryById(processEntity.getId());
+        } else {
+            return null;
+        }
+    }
 
 
 
