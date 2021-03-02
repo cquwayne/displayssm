@@ -90,7 +90,7 @@
     <delete id="deleteById">
         delete
         from paper.entity_element_data
-        where modelEntityId = #{modelEntityId}
+        where model_entity_id = #{modelEntityId}
     </delete>
 
 </mapper>

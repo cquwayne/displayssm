@@ -76,9 +76,8 @@ public interface ModelEntityDao {
     /**
      * 通过主键删除数据
      *
-     * @param 主键
      * @return 影响行数
      */
-    int deleteById();
+    int deleteById(String id);
 
 }

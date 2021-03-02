@@ -1,10 +1,7 @@
 package com.paper.ssm.controller;
 
 import com.paper.ssm.dao.*;
-import com.paper.ssm.entity.EntityElementData;
-import com.paper.ssm.entity.Line;
-import com.paper.ssm.entity.Node;
-import com.paper.ssm.entity.ProcessEntity;
+import com.paper.ssm.entity.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +36,8 @@ public class ProcessEntityController {
     @Resource
     private EntityElementDataDao entityElementDataDao;
 
+    int once = 1;
+
     /**
      * 通过主键查询单条数据
      *
@@ -53,13 +52,10 @@ public class ProcessEntityController {
     @PostMapping("")
     @Transactional
     public int postOne(@RequestBody ProcessEntity processEntity) {
-        if (this.processEntityDao.queryById(processEntity.getId())!=null) {
-            if (this.updateOne(processEntity)!=null){
-                return 1;
-            } else {
-                return 0;
-            }
+        if (this.processEntityDao.queryById(processEntity.getId())!=null&&once==1) {
+            return this.updateOne(processEntity);
         }
+        once = 1;
         int flag0,flag1=0,flag2=0,flag3=0,flag4=0;
         flag0 = this.processEntityDao.insert(processEntity);
         List<Node> nodes = processEntity.getNodeList();
@@ -91,12 +87,55 @@ public class ProcessEntityController {
 
     @PutMapping("")
     @Transactional
-    public ProcessEntity updateOne(@RequestBody ProcessEntity processEntity) {
-        if (this.processEntityDao.update(processEntity)==1) {
-            return this.processEntityDao.queryById(processEntity.getId());
-        } else {
-            return null;
+    public int updateOne(@RequestBody ProcessEntity processEntity) {
+        ProcessEntity tmpEntity = this.processEntityDao.queryById(processEntity.getId());
+        this.processEntityDao.deleteById(tmpEntity.getId());
+        List<Node> nodes = tmpEntity.getNodeList();
+        for (int i=0;i<nodes.size();i++) {
+            Node tmp = nodes.get(i);
+            this.nodeDao.deleteById(tmp.getId());
+            this.modelEntityDao.deleteById(tmp.getModelEntity().getId());
+            this.entityElementDataDao.deleteById(tmp.getModelEntity().getId());
         }
+        List<Line> lines = tmpEntity.getLineList();
+        for (int i=0;i<lines.size();i++) {
+            Line tmp = lines.get(i);
+            this.lineDao.deleteById(tmp.getId());
+        }
+        once = 0;
+        return this.postOne(processEntity);
+//        if (this.processEntityDao.update(processEntity)==1) {
+//            List<Node> nodes = processEntity.getNodeList();
+//            for (int i=0;i<nodes.size();i++) {
+//                Node tmp = nodes.get(i);
+//                if (this.nodeDao.queryById(tmp.getId())!=null){
+//                    if (this.nodeDao.update(tmp)==1) {
+//                        ModelEntity modelEntity = tmp.getModelEntity();
+//                        this.modelEntityDao.update(modelEntity);
+//                        List<EntityElementData> entityElementDataList = tmp.getModelEntity().getEntityElementDataList();
+//                        for (int k=0;k<entityElementDataList.size();k++) {
+//                            EntityElementData entityElementDataTmp = entityElementDataList.get(k);
+//
+//                        }
+//                    }
+//                } else {
+//                    this.nodeDao.insert(tmp);
+//                    this.modelEntityDao.insert(tmp.getModelEntity());
+//                }
+//            }
+//            List<Line> lines = processEntity.getLineList();
+//            for (int i=0;i<lines.size();i++) {
+//                Line tmp = lines.get(i);
+//                if (this.lineDao.queryById(tmp.getId())!=null){
+//                    this.lineDao.update(tmp);
+//                } else {
+//                    this.lineDao.insert(tmp);
+//                }
+//            }
+//            return this.processEntityDao.queryById(processEntity.getId());
+//        } else {
+//            return null;
+//        }
     }
 
 

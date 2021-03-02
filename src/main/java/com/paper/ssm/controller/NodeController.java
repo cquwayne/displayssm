@@ -2,10 +2,7 @@ package com.paper.ssm.controller;
 
 import com.paper.ssm.dao.NodeDao;
 import com.paper.ssm.entity.Node;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -34,6 +31,11 @@ public class NodeController {
     @GetMapping("selectOne")
     public Node selectOne(String id) {
         return this.nodeDao.queryById(id);
+    }
+
+    @PostMapping("postOne")
+    public int updateOne(Node node) {
+        return this.nodeDao.update(node);
     }
 
 }
