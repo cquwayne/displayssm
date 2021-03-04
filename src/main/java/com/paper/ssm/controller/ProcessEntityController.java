@@ -1,11 +1,16 @@
 package com.paper.ssm.controller;
 
 import com.paper.ssm.dao.*;
-import com.paper.ssm.entity.*;
+import com.paper.ssm.entity.EntityElementData;
+import com.paper.ssm.entity.Line;
+import com.paper.ssm.entity.Node;
+import com.paper.ssm.entity.ProcessEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -136,6 +141,23 @@ public class ProcessEntityController {
 //        } else {
 //            return null;
 //        }
+    }
+
+    @GetMapping("/compute")
+    public void computeModel(@RequestParam String id) throws Exception {
+
+        String[] args1 = new String[] { "python", "D:\\PycharmProjects\\pythonProject\\predict.py", id};
+        Process proc = Runtime.getRuntime().exec(args1);
+        // 用输入输出流来截取结果
+        BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+        String line = null;
+        while ((line = in.readLine()) != null) {
+            if (line.equals("finish")) {
+
+            }
+        }
+        in.close();
+        proc.waitFor();
     }
 
 
