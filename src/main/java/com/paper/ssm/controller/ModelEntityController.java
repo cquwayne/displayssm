@@ -5,6 +5,7 @@ import com.paper.ssm.entity.ModelEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (ModelEntity)表控制层
@@ -28,9 +29,13 @@ public class ModelEntityController {
      *
      * @return 单条数据
      */
-    @GetMapping("selectOne")
+    @GetMapping("/selectOne")
     public ModelEntity selectOne(@RequestParam String id) {
         return this.modelEntityDao.queryById(id);
     }
 
+    @GetMapping("/list")
+    public List<ModelEntity> queryAll(){
+        return this.modelEntityDao.queryAll();
+    }
 }

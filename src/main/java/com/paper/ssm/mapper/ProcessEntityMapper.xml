@@ -34,17 +34,7 @@
         select
         id, title, remark
         from paper.process_entity
-        <where>
-            <if test="id != null and id != ''">
-                and id = #{id}
-            </if>
-            <if test="title != null and title != ''">
-                and title = #{title}
-            </if>
-            <if test="remark != null and remark != ''">
-                and remark = #{remark}
-            </if>
-        </where>
+
     </select>
 
     <!--新增所有列-->

@@ -39,8 +39,9 @@ public interface ModelEntityDao {
      * @param modelEntity 实例对象
      * @return 对象列表
      */
-    List<ModelEntity> queryAll(ModelEntity modelEntity);
+//    List<ModelEntity> queryAll(ModelEntity modelEntity);
 
+    List<ModelEntity> queryAll();
     /**
      * 新增数据
      *

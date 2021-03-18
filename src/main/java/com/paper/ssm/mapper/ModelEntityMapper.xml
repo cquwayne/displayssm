@@ -44,29 +44,7 @@
         select
         id, title, operator, execution_time, region, data_source, remark
         from paper.model_entity
-        <where>
-            <if test="id != null and id != ''">
-                and id = #{id}
-            </if>
-            <if test="title != null and title != ''">
-                and title = #{title}
-            </if>
-            <if test="operator != null and operator != ''">
-                and operator = #{operator}
-            </if>
-            <if test="executionTime != null and executionTime != ''">
-                and execution_time = #{executionTime}
-            </if>
-            <if test="region != null and region != ''">
-                and region = #{region}
-            </if>
-            <if test="dataSource != null and dataSource != ''">
-                and data_source = #{dataSource}
-            </if>
-            <if test="remark != null and remark != ''">
-                and remark = #{remark}
-            </if>
-        </where> id = #{id}
+
     </select>
 
     <!--新增所有列-->

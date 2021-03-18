@@ -143,6 +143,11 @@ public class ProcessEntityController {
 //        }
     }
 
+    @GetMapping("/list")
+    public List<ProcessEntity> queryAll(){
+       return this.processEntityDao.queryAll();
+    }
+
     @GetMapping("/compute")
     public void computeModel(@RequestParam String id) throws Exception {
 
