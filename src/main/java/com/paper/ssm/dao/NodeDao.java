@@ -10,7 +10,7 @@ import java.util.List;
  * (Node)表数据库访问层
  *
  * @author makejava
- * @since 2021-01-29 11:23:46
+ * @since 2021-04-16 19:41:20
  */
 @Mapper
 public interface NodeDao {
@@ -18,19 +18,11 @@ public interface NodeDao {
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
      * @return 实例对象
      */
     Node queryById(String id);
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param processEntityId 主键
-     * @return 实例对象
-     */
-    Node queryByProcessEntityId(String processEntityId);
-
+    List<Node> queryBySceneDataId(String sceneDataId);
     /**
      * 查询指定行数据
      *
@@ -84,9 +76,8 @@ public interface NodeDao {
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
      * @return 影响行数
      */
-    int deleteById(String id);
+    int deleteBySceneDataId(String sceneDataId);
 
 }

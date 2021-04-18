@@ -1,33 +1,30 @@
 package com.paper.ssm.entity;
 
-import java.io.Serializable;
-
 /**
  * (Line)实体类
  *
  * @author makejava
- * @since 2021-01-29 11:23:42
+ * @since 2021-04-16 19:41:23
  */
-public class Line implements Serializable {
-    private static final long serialVersionUID = 143289693223652099L;
+public class Line {
     /**
      * 连接线的唯一标识符
      */
     private String id;
     /**
-     * 工艺过程唯一标识符
+     * 工艺场景唯一标识符
      */
-    private String processEntityId;
+    private String sceneDataId;
     /**
      * 连接线名称
      */
     private String title;
     /**
-     * 源活动节点编号
+     * 源活动结点编号
      */
     private String from;
     /**
-     * 目标活动节点编号
+     * 目标活动结点编号
      */
     private String to;
     /**
@@ -44,12 +41,12 @@ public class Line implements Serializable {
         this.id = id;
     }
 
-    public String getProcessEntityId() {
-        return processEntityId;
+    public String getSceneDataId() {
+        return sceneDataId;
     }
 
-    public void setProcessEntityId(String processEntityId) {
-        this.processEntityId = processEntityId;
+    public void setSceneDataId(String sceneDataId) {
+        this.sceneDataId = sceneDataId;
     }
 
     public String getTitle() {

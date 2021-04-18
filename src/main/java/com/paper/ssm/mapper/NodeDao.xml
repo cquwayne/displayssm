@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.dao.NodeDao">
+
+    <resultMap type="com.paper.ssm.entity.Node" id="NodeMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="sceneDataId" column="scene_data_id" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="top" column="top" jdbcType="VARCHAR"/>
+        <result property="left" column="left" jdbcType="VARCHAR"/>
+        <association property="sceneData" column="id" select="com.paper.ssm.dao.SceneDataDao.queryById"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="NodeMap">
+        select id,
+               scene_data_id,
+               title,
+               top, left
+        from display.node
+        where id= #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryBySceneDataId" resultMap="NodeMap">
+        select id,
+               scene_data_id,
+               title,
+               top,
+               `left`
+        from display.node
+        where scene_data_id = #{sceneDataId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="NodeMap">
+        select id,
+               scene_data_id,
+               title,
+               top, left
+        from display.node
+            limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="NodeMap">
+        select
+        id, scene_data_id, title, top, left
+        from display.node
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="sceneDataId != null and sceneDataId != ''">
+                and scene_data_id = #{sceneDataId}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="top != null and top != ''">
+                and top = #{top}
+            </if>
+            <if test="left != null and left != ''">
+                and left = #{left}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into display.node(id, scene_data_id, title, top, left)
+        values (#{id}, #{sceneDataId}, #{title}, #{top}, #{left})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="" useGeneratedKeys="true">
+        insert into display.node(id, scene_data_id, title, top, left)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id}, #{entity.sceneDataId}, #{entity.title}, #{entity.top}, #{entity.left})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="" useGeneratedKeys="true">
+        insert into display.node(id, scene_data_id, title, top, left)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id}, #{entity.sceneDataId}, #{entity.title}, #{entity.top}, #{entity.left})
+        </foreach>
+        on duplicate key update
+        id = values(id) , scene_data_id = values(scene_data_id) , title = values(title) , top = values(top) , left =
+        values(left)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update display.node
+        <set>
+            <if test="id != null and id != ''">
+                id = #{id},
+            </if>
+            <if test="sceneDataId != null and sceneDataId != ''">
+                scene_data_id = #{sceneDataId},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="top != null and top != ''">
+                top = #{top},
+            </if>
+            <if test="left != null and left != ''">
+                left = #{left},
+            </if>
+        </set>
+        where id= #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteBySceneDataId">
+        delete
+        from display.node
+        where scene_data_id= #{sceneDataId}
+    </delete>
+
+</mapper>

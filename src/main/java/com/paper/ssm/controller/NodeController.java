@@ -10,7 +10,7 @@ import javax.annotation.Resource;
  * (Node)表控制层
  *
  * @author makejava
- * @since 2021-01-29 11:23:47
+ * @since 2021-04-16 19:41:21
  */
 @CrossOrigin
 @RestController
@@ -29,13 +29,8 @@ public class NodeController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public Node selectOne(String id) {
+    public Node selectOne(@RequestParam String id) {
         return this.nodeDao.queryById(id);
-    }
-
-    @PostMapping("postOne")
-    public int updateOne(Node node) {
-        return this.nodeDao.update(node);
     }
 
 }

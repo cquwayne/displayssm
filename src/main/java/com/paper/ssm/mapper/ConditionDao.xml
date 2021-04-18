@@ -3,80 +3,80 @@
 <mapper namespace="com.paper.ssm.dao.ConditionDao">
 
     <resultMap type="com.paper.ssm.entity.Condition" id="ConditionMap">
-        <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="cId" column="c_id" jdbcType="INTEGER"/>
+        <result property="cBody" column="c_body" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ConditionMap">
-        select id,
-               title
+        select c_id,
+               c_body
         from paper.condition
-        where id = #{id}
+        where c_id = #{cId}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ConditionMap">
-        select id,
-               title
+        select c_id,
+               c_body
         from paper.condition limit #{offset}, #{limit}
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ConditionMap">
         select
-        id, title
+        c_id, c_body
         from paper.condition
         <where>
-            <if test="id != null">
-                and id = #{id}
+            <if test="cId != null">
+                and c_id = #{cId}
             </if>
-            <if test="title != null and title != ''">
-                and title = #{title}
+            <if test="cBody != null and cBody != ''">
+                and c_body = #{cBody}
             </if>
         </where>
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.condition(title)
-        values (#{title})
+    <insert id="insert" keyProperty="cId" useGeneratedKeys="true">
+        insert into paper.condition(c_body)
+        values (#{cBody})
     </insert>
 
-    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.condition(title)
+    <insert id="insertBatch" keyProperty="cId" useGeneratedKeys="true">
+        insert into paper.condition(c_body)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.title})
+            (#{entity.cBody})
         </foreach>
     </insert>
 
-    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.condition(title)
+    <insert id="insertOrUpdateBatch" keyProperty="cId" useGeneratedKeys="true">
+        insert into paper.condition(c_body)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.title})
+            (#{entity.cBody})
         </foreach>
         on duplicate key update
-        title = values(title)
+        c_body = values(c_body)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update paper.condition
         <set>
-            <if test="title != null and title != ''">
-                title = #{title},
+            <if test="cBody != null and cBody != ''">
+                c_body = #{cBody},
             </if>
         </set>
-        where id = #{id}
+        where c_id = #{cId}
     </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">
         delete
         from paper.condition
-        where id = #{id}
+        where c_id = #{cId}
     </delete>
 
 </mapper>

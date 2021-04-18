@@ -6,30 +6,25 @@ import java.io.Serializable;
  * (Knowledge)实体类
  *
  * @author makejava
- * @since 2021-03-18 00:27:54
+ * @since 2021-03-21 16:12:51
  */
-public class Knowledge implements Serializable {
-    private static final long serialVersionUID = -89815296250489377L;
+public class Knowledge {
     /**
      * 知识编号
      */
     private Integer id;
     /**
-     * 影响因素
-     */
-    private String impact;
-    /**
-     * 工艺条件
+     * 工艺条件集合
      */
     private String conditions;
     /**
-     * 环境负荷
+     * 经验结论类型
      */
-    private String envload;
+    private Integer sType;
     /**
-     * 数据项
+     * 经验结论
      */
-    private String datalist;
+    private String sTitle;
 
 
     public Integer getId() {
@@ -40,14 +35,6 @@ public class Knowledge implements Serializable {
         this.id = id;
     }
 
-    public String getImpact() {
-        return impact;
-    }
-
-    public void setImpact(String impact) {
-        this.impact = impact;
-    }
-
     public String getConditions() {
         return conditions;
     }
@@ -56,20 +43,20 @@ public class Knowledge implements Serializable {
         this.conditions = conditions;
     }
 
-    public String getEnvload() {
-        return envload;
+    public Integer getSType() {
+        return sType;
     }
 
-    public void setEnvload(String envload) {
-        this.envload = envload;
+    public void setSType(Integer sType) {
+        this.sType = sType;
     }
 
-    public String getDatalist() {
-        return datalist;
+    public String getSTitle() {
+        return sTitle;
     }
 
-    public void setDatalist(String datalist) {
-        this.datalist = datalist;
+    public void setSTitle(String sTitle) {
+        this.sTitle = sTitle;
     }
 
 }

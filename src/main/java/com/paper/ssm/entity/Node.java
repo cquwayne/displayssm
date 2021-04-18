@@ -1,31 +1,23 @@
 package com.paper.ssm.entity;
 
-import java.io.Serializable;
 
 /**
  * (Node)实体类
  *
  * @author makejava
- * @since 2021-01-29 11:23:46
+ * @since 2021-04-16 19:41:19
  */
-public class Node implements Serializable {
-    private static final long serialVersionUID = 376370799654337243L;
+public class Node {
     /**
-     * 节点(模型实例)的唯一标识符
+     * 结点(模型实例)的唯一标识符
      */
     private String id;
     /**
      * 工艺过程的主键
      */
-    private String processEntityId;
-
-//    /**
-//     * 工艺过程的主键
-//     */
-//    private ProcessEntity processEntity;
-
+    private String sceneDataId;
     /**
-     * 节点的名称
+     * 结点的名称
      */
     private String title;
     /**
@@ -37,11 +29,7 @@ public class Node implements Serializable {
      */
     private String left;
 
-    /**
-     * 场景实例数据
-     */
-    private ModelEntity modelEntity;
-
+    private SceneData sceneData;
 
     public String getId() {
         return id;
@@ -51,21 +39,13 @@ public class Node implements Serializable {
         this.id = id;
     }
 
-    public String getProcessEntityId() {
-        return processEntityId;
+    public String getSceneDataId() {
+        return sceneDataId;
     }
 
-    public void setProcessEntityId(String processEntityId) {
-        this.processEntityId = processEntityId;
+    public void setSceneDataId(String sceneDataId) {
+        this.sceneDataId = sceneDataId;
     }
-
-//    public ProcessEntity getProcessEntity() {
-//        return processEntity;
-//    }
-//
-//    public void setProcessEntity(ProcessEntity processEntity) {
-//        this.processEntity = processEntity;
-//    }
 
     public String getTitle() {
         return title;
@@ -91,11 +71,11 @@ public class Node implements Serializable {
         this.left = left;
     }
 
-    public ModelEntity getModelEntity() {
-        return modelEntity;
+    public SceneData getSceneData() {
+        return sceneData;
     }
 
-    public void setModelEntity(ModelEntity modelEntity) {
-        this.modelEntity = modelEntity;
+    public void setSceneData(SceneData sceneData) {
+        this.sceneData = sceneData;
     }
 }

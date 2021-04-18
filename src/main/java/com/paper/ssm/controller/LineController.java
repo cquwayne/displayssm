@@ -2,10 +2,7 @@ package com.paper.ssm.controller;
 
 import com.paper.ssm.dao.LineDao;
 import com.paper.ssm.entity.Line;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -13,7 +10,7 @@ import javax.annotation.Resource;
  * (Line)表控制层
  *
  * @author makejava
- * @since 2021-01-29 11:23:43
+ * @since 2021-04-16 19:41:24
  */
 @CrossOrigin
 @RestController
@@ -32,7 +29,7 @@ public class LineController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public Line selectOne(String id) {
+    public Line selectOne(@RequestParam String id) {
         return this.lineDao.queryById(id);
     }
 

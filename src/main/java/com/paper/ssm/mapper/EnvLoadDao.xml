@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.dao.EnvLoadDao">
+
+    <resultMap type="com.paper.ssm.entity.EnvLoad" id="EnvLoadMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="envLoadCategoryId" column="env_load_category_id" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="safetyId" column="safety_id" jdbcType="VARCHAR"/>
+        <result property="treatment" column="treatment" jdbcType="VARCHAR"/>
+        <result property="source" column="source" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="EnvLoadMap">
+        select id,
+               title,
+               env_load_category_id,
+               description,
+               safety_id,
+               treatment,
+               source
+        from display.env_load
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="EnvLoadMap">
+        select id,
+               title,
+               env_load_category_id,
+               description,
+               safety_id,
+               treatment,
+               source
+        from display.env_load limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="EnvLoadMap">
+        select
+        id, title, env_load_category_id, description, safety_id, treatment, `source`
+        from display.env_load
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="envLoadCategoryId != null and envLoadCategoryId != ''">
+                and env_load_category_id = #{envLoadCategoryId}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="safetyId != null and safetyId != ''">
+                and safety_id = #{safetyId}
+            </if>
+            <if test="treatment != null and treatment != ''">
+                and treatment = #{treatment}
+            </if>
+            <if test="source != null and source != ''">
+                and `source` = #{source}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into display.env_load(title, description, treatment, source)
+        values (#{title}, #{description}, #{treatment}, #{source})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into display.env_load(title, description, treatment, source)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.title}, #{entity.description}, #{entity.treatment}, #{entity.source})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into display.env_load(title, description, treatment, source)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.title}, #{entity.description}, #{entity.treatment}, #{entity.source})
+        </foreach>
+        on duplicate key update
+        title = values(title) , description = values(description) , treatment = values(treatment) , source =
+        values(source)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update display.env_load
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="treatment != null and treatment != ''">
+                treatment = #{treatment},
+            </if>
+            <if test="source != null and source != ''">
+                source = #{source},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from display.env_load
+        where id = #{id}
+    </delete>
+
+</mapper>

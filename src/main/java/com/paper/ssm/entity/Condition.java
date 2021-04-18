@@ -6,34 +6,34 @@ import java.io.Serializable;
  * (Condition)实体类
  *
  * @author makejava
- * @since 2021-03-18 00:27:57
+ * @since 2021-03-21 15:28:12
  */
 public class Condition implements Serializable {
-    private static final long serialVersionUID = 998429364312112826L;
+    private static final long serialVersionUID = -26035383325344486L;
     /**
      * 工艺条件编号
      */
-    private Integer id;
+    private Integer cId;
     /**
-     * 工艺条件名称
+     * 工艺条件
      */
-    private String title;
+    private String cBody;
 
 
-    public Integer getId() {
-        return id;
+    public Integer getCId() {
+        return cId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCId(Integer cId) {
+        this.cId = cId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCBody() {
+        return cBody;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCBody(String cBody) {
+        this.cBody = cBody;
     }
 
 }

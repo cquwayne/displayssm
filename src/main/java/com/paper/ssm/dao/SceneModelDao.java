@@ -10,7 +10,7 @@ import java.util.List;
  * (SceneModel)表数据库访问层
  *
  * @author makejava
- * @since 2020-12-29 20:53:30
+ * @since 2021-04-17 10:47:43
  */
 @Mapper
 public interface SceneModelDao {
@@ -21,18 +21,16 @@ public interface SceneModelDao {
      * @param id 主键
      * @return 实例对象
      */
-    SceneModel queryById(Long id);
-
-    SceneModel querySimpleById(Long id);
-
-    SceneModel queryTitleById(Long id);
+    SceneModel queryById(String id);
 
     /**
      * 查询指定行数据
      *
+     * @param offset 查询起始位置
+     * @param limit  查询条数
      * @return 对象列表
      */
-    List<SceneModel> queryAllData();
+    List<SceneModel> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
@@ -41,6 +39,8 @@ public interface SceneModelDao {
      * @return 对象列表
      */
     List<SceneModel> queryAll();
+
+//    List<SceneModel> queryAll(SceneModel sceneModel);
 
     /**
      * 新增数据
@@ -80,6 +80,6 @@ public interface SceneModelDao {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int deleteById(String id);
 
 }

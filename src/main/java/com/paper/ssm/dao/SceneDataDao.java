@@ -1,27 +1,26 @@
 package com.paper.ssm.dao;
 
-import com.paper.ssm.entity.Knowledge;
+import com.paper.ssm.entity.SceneData;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * (Knowledge)表数据库访问层
+ * (SceneData)表数据库访问层
  *
  * @author makejava
- * @since 2021-03-21 16:12:52
+ * @since 2021-04-16 19:41:25
  */
 @Mapper
-public interface KnowledgeDao {
+public interface SceneDataDao {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
      * @return 实例对象
      */
-    Knowledge queryById(Integer id);
+    SceneData queryById(String id);
 
     /**
      * 查询指定行数据
@@ -30,56 +29,54 @@ public interface KnowledgeDao {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<Knowledge> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<SceneData> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-//     * @param knowledge 实例对象
+     * @param sceneData 实例对象
      * @return 对象列表
      */
-//    List<Knowledge> queryAll(Knowledge knowledge);
-    List<Knowledge> queryAll();
+    List<SceneData> queryAll(SceneData sceneData);
 
     /**
      * 新增数据
      *
-     * @param knowledge 实例对象
+     * @param sceneData 实例对象
      * @return 影响行数
      */
-    int insert(Knowledge knowledge);
+    int insert(SceneData sceneData);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Knowledge> 实例对象列表
+     * @param entities List<SceneData> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<Knowledge> entities);
+    int insertBatch(@Param("entities") List<SceneData> entities);
 
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Knowledge> 实例对象列表
+     * @param entities List<SceneData> 实例对象列表
      * @return 影响行数
      */
-    int insertOrUpdateBatch(@Param("entities") List<Knowledge> entities);
+    int insertOrUpdateBatch(@Param("entities") List<SceneData> entities);
 
     /**
      * 修改数据
      *
-     * @param knowledge 实例对象
+     * @param sceneData 实例对象
      * @return 影响行数
      */
-    int update(Knowledge knowledge);
+    int update(SceneData sceneData);
 
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Integer id);
+    int deleteById(String id);
 
 }

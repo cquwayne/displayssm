@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.dao.PetriDao">
+
+    <resultMap type="com.paper.ssm.entity.Petri" id="PetriMap">
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="cTitle" column="c_title" jdbcType="VARCHAR"/>
+        <result property="fTitle" column="f_title" jdbcType="VARCHAR"/>
+        <result property="cState" column="c_state" jdbcType="INTEGER"/>
+        <result property="fState" column="f_state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PetriMap">
+        select p_id,
+               c_title,
+               f_title,
+               c_state,
+               f_state
+        from paper.petri
+        where p_id = #{pId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PetriMap">
+        select p_id,
+               c_title,
+               f_title,
+               c_state,
+               f_state
+        from paper.petri limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PetriMap">
+        select
+        p_id, c_title, f_title, c_state, f_state
+        from paper.petri
+        <where>
+            <if test="pId != null">
+                and p_id = #{pId}
+            </if>
+            <if test="cTitle != null and cTitle != ''">
+                and c_title = #{cTitle}
+            </if>
+            <if test="fTitle != null and fTitle != ''">
+                and f_title = #{fTitle}
+            </if>
+            <if test="cState != null">
+                and c_state = #{cState}
+            </if>
+            <if test="fState != null">
+                and f_state = #{fState}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="pId" useGeneratedKeys="true">
+        insert into paper.petri(c_state, f_state)
+        values (#{cState}, #{fState})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="pId" useGeneratedKeys="true">
+        insert into paper.petri(c_state, f_state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.cState}, #{entity.fState})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="pId" useGeneratedKeys="true">
+        insert into paper.petri(c_state, f_state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.cState}, #{entity.fState})
+        </foreach>
+        on duplicate key update
+        c_state = values(c_state) , f_state = values(f_state)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update paper.petri
+        <set>
+            <if test="cState != null">
+                c_state = #{cState},
+            </if>
+            <if test="fState != null">
+                f_state = #{fState},
+            </if>
+        </set>
+        where p_id = #{pId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from paper.petri
+        where p_id = #{pId}
+    </delete>
+
+</mapper>

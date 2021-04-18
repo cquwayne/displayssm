@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.dao.SceneDataDao">
+
+    <resultMap type="com.paper.ssm.entity.SceneData" id="SceneDataMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="category" column="category" jdbcType="INTEGER"/>
+        <result property="hierarchy" column="hierarchy" jdbcType="VARCHAR"/>
+        <result property="boundary" column="boundary" jdbcType="VARCHAR"/>
+        <result property="function" column="function" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <collection column="id" property="nodeList" ofType="com.paper.ssm.entity.Node"
+                    javaType="java.util.ArrayList" select="com.paper.ssm.dao.NodeDao.queryBySceneDataId"/>
+        <collection column="id" property="lineList" ofType="com.paper.ssm.entity.Line"
+                    javaType="java.util.ArrayList" select="com.paper.ssm.dao.LineDao.queryBySceneDataId"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SceneDataMap">
+        select id,
+               title,
+               category,
+               `hierarchy`,
+               boundary,
+               `function`,
+               remark
+        from display.scene_data
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SceneDataMap">
+        select id,
+               title,
+               category,
+               `hierarchy`,
+               boundary,
+               `function`,
+               remark
+        from display.scene_data limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SceneDataMap">
+        select
+        id, title, category, hierarchy, boundary, function, remark
+        from display.scene_data
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="category != null">
+                and category = #{category}
+            </if>
+            <if test="hierarchy != null and hierarchy != ''">
+                and hierarchy = #{hierarchy}
+            </if>
+            <if test="boundary != null and boundary != ''">
+                and boundary = #{boundary}
+            </if>
+            <if test="function != null and function != ''">
+                and function = #{function}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into display.scene_data(id, title, category, hierarchy, boundary, function, remark)
+        values (#{id}, #{title}, #{category}, #{hierarchy}, #{boundary}, #{function}, #{remark})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="" useGeneratedKeys="true">
+        insert into display.scene_data(id, title, category, hierarchy, boundary, function, remark)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id}, #{entity.title}, #{entity.category}, #{entity.hierarchy}, #{entity.boundary},
+            #{entity.function}, #{entity.remark})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="" useGeneratedKeys="true">
+        insert into display.scene_data(id, title, category, hierarchy, boundary, function, remark)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id}, #{entity.title}, #{entity.category}, #{entity.hierarchy}, #{entity.boundary},
+            #{entity.function}, #{entity.remark})
+        </foreach>
+        on duplicate key update
+        id = values(id) , title = values(title) , category = values(category) , hierarchy = values(hierarchy) , boundary
+        = values(boundary) , function = values(function) , remark = values(remark)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update display.scene_data
+        <set>
+            <if test="id != null and id != ''">
+                id = #{id},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="category != null">
+                category = #{category},
+            </if>
+            <if test="hierarchy != null and hierarchy != ''">
+                hierarchy = #{hierarchy},
+            </if>
+            <if test="boundary != null and boundary != ''">
+                boundary = #{boundary},
+            </if>
+            <if test="function != null and function != ''">
+                function = #{function},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+        </set>
+        where id= #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from display.scene_data
+        where id= #{id}
+    </delete>
+
+</mapper>

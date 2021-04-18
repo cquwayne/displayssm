@@ -1,27 +1,27 @@
 package com.paper.ssm.dao;
 
-import com.paper.ssm.entity.Knowledge;
+import com.paper.ssm.entity.Feature;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * (Knowledge)表数据库访问层
+ * (Feature)表数据库访问层
  *
  * @author makejava
- * @since 2021-03-21 16:12:52
+ * @since 2021-03-21 15:28:15
  */
 @Mapper
-public interface KnowledgeDao {
+public interface FeatureDao {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
+     * @param fId 主键
      * @return 实例对象
      */
-    Knowledge queryById(Integer id);
+    Feature queryById(Integer fId);
 
     /**
      * 查询指定行数据
@@ -30,56 +30,57 @@ public interface KnowledgeDao {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<Knowledge> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Feature> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-//     * @param knowledge 实例对象
+//     * @param feature 实例对象
      * @return 对象列表
      */
-//    List<Knowledge> queryAll(Knowledge knowledge);
-    List<Knowledge> queryAll();
+//    List<Feature> queryAll(Feature feature);
+
+    List<Feature> queryAll();
 
     /**
      * 新增数据
      *
-     * @param knowledge 实例对象
+     * @param feature 实例对象
      * @return 影响行数
      */
-    int insert(Knowledge knowledge);
+    int insert(Feature feature);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Knowledge> 实例对象列表
+     * @param entities List<Feature> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<Knowledge> entities);
+    int insertBatch(@Param("entities") List<Feature> entities);
 
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Knowledge> 实例对象列表
+     * @param entities List<Feature> 实例对象列表
      * @return 影响行数
      */
-    int insertOrUpdateBatch(@Param("entities") List<Knowledge> entities);
+    int insertOrUpdateBatch(@Param("entities") List<Feature> entities);
 
     /**
      * 修改数据
      *
-     * @param knowledge 实例对象
+     * @param feature 实例对象
      * @return 影响行数
      */
-    int update(Knowledge knowledge);
+    int update(Feature feature);
 
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
+     * @param fId 主键
      * @return 影响行数
      */
-    int deleteById(Integer id);
+    int deleteById(Integer fId);
 
 }

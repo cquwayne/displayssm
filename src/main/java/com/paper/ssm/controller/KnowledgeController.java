@@ -14,11 +14,11 @@ import java.util.List;
  * (Knowledge)表控制层
  *
  * @author makejava
- * @since 2021-03-18 00:27:56
+ * @since 2021-03-21 16:12:52
  */
 @CrossOrigin
 @RestController
-@RequestMapping("knowledge/")
+@RequestMapping("knowledge")
 public class KnowledgeController {
     /**
      * 服务对象
@@ -36,11 +36,10 @@ public class KnowledgeController {
     public Knowledge selectOne(Integer id) {
         return this.knowledgeDao.queryById(id);
     }
-    
+
     @GetMapping("list")
-    public List<Knowledge> selectList() {
+    public List<Knowledge> selectAll() {
         return this.knowledgeDao.queryAll();
     }
 
-    
 }

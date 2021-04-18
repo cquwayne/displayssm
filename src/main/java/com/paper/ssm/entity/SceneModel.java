@@ -1,52 +1,43 @@
 package com.paper.ssm.entity;
 
-import java.util.List;
-
 /**
  * (SceneModel)实体类
  *
  * @author makejava
- * @since 2020-12-30 10:37:15
+ * @since 2021-04-17 10:47:43
  */
 public class SceneModel {
-    private static final long serialVersionUID = -16289584806726906L;
     /**
-     * 场景模型id
+     * 场景模型编号
      */
-    private Long id;
+    private String id;
     /**
      * 场景模型名称
      */
     private String title;
     /**
-     * 场景模型父类id
+     * 上层模型编号
      */
-    private Long parentId;
-    private SceneModel parent;
+    private String parentId;
     /**
-     * 场景模型类型
+     * 模型创建者
      */
-    private Long processTypeId;
-    private ProcessType processType;
     private String operator;
-    private String executionTime;
-    private String region;
+    /**
+     * 数据来源
+     */
     private String dataSource;
     /**
-     * 场景模型描述
+     * 场景描述
      */
     private String description;
 
-    /**
-     * 场景要素数据
-     */
-    private List<ElementData> elementDataList;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -58,36 +49,12 @@ public class SceneModel {
         this.title = title;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
-    }
-
-    public SceneModel getParent() {
-        return parent;
-    }
-
-    public void setParent(SceneModel parent) {
-        this.parent = parent;
-    }
-
-    public Long getProcessTypeId() {
-        return processTypeId;
-    }
-
-    public void setProcessTypeId(Long processTypeId) {
-        this.processTypeId = processTypeId;
-    }
-
-    public ProcessType getProcessType() {
-        return processType;
-    }
-
-    public void setProcessType(ProcessType processType) {
-        this.processType = processType;
     }
 
     public String getOperator() {
@@ -96,22 +63,6 @@ public class SceneModel {
 
     public void setOperator(String operator) {
         this.operator = operator;
-    }
-
-    public String getExecutionTime() {
-        return executionTime;
-    }
-
-    public void setExecutionTime(String executionTime) {
-        this.executionTime = executionTime;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
     }
 
     public String getDataSource() {
@@ -130,11 +81,4 @@ public class SceneModel {
         this.description = description;
     }
 
-    public List<ElementData> getElementDataList() {
-        return elementDataList;
-    }
-
-    public void setElementDataList(List<ElementData> elementDataList) {
-        this.elementDataList = elementDataList;
-    }
 }

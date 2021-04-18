@@ -10,7 +10,7 @@ import java.util.List;
  * (Line)表数据库访问层
  *
  * @author makejava
- * @since 2021-01-29 11:23:42
+ * @since 2021-04-16 19:41:23
  */
 @Mapper
 public interface LineDao {
@@ -18,12 +18,11 @@ public interface LineDao {
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
      * @return 实例对象
      */
     Line queryById(String id);
 
-    Line queryByProcessEntityId(String processEntityId);
+    List<Line> queryBySceneDataId(String sceneDataId);
 
     /**
      * 查询指定行数据
@@ -78,9 +77,8 @@ public interface LineDao {
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
      * @return 影响行数
      */
-    int deleteById(String id);
+    int deleteSceneDataId(String sceneDataId);
 
 }

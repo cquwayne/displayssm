@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.dao.LineDao">
+
+    <resultMap type="com.paper.ssm.entity.Line" id="LineMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="sceneDataId" column="scene_data_id" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="from" column="from" jdbcType="VARCHAR"/>
+        <result property="to" column="to" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="LineMap">
+        select id,
+               scene_data_id,
+               title,
+        from, to, remark
+        from display.line
+        where id= #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryBySceneDataId" resultMap="LineMap">
+        select id,
+               scene_data_id,
+               title,
+               `from`,
+               `to`,
+               remark
+        from display.line
+        where scene_data_id = #{sceneDataId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="LineMap">
+        select id,
+               scene_data_id,
+               title,
+        from, to, remark
+        from display.line
+            limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="LineMap">
+        select
+        id, scene_data_id, title, from, to, remark
+        from display.line
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="sceneDataId != null and sceneDataId != ''">
+                and scene_data_id = #{sceneDataId}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="from != null and from != ''">
+                and from = #{from}
+            </if>
+            <if test="to != null and to != ''">
+                and to = #{to}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into display.line(id, scene_data_id, title, from, to, remark)
+        values (#{id}, #{sceneDataId}, #{title}, #{from}, #{to}, #{remark})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="" useGeneratedKeys="true">
+        insert into display.line(id, scene_data_id, title, from, to, remark)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id}, #{entity.sceneDataId}, #{entity.title}, #{entity.from}, #{entity.to}, #{entity.remark})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="" useGeneratedKeys="true">
+        insert into display.line(id, scene_data_id, title, from, to, remark)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id}, #{entity.sceneDataId}, #{entity.title}, #{entity.from}, #{entity.to}, #{entity.remark})
+        </foreach>
+        on duplicate key update
+        id = values(id) , scene_data_id = values(scene_data_id) , title = values(title) , from = values(from) , to =
+        values(to) , remark = values(remark)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update display.line
+        <set>
+            <if test="id != null and id != ''">
+                id = #{id},
+            </if>
+            <if test="sceneDataId != null and sceneDataId != ''">
+                scene_data_id = #{sceneDataId},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="from != null and from != ''">
+                from = #{from},
+            </if>
+            <if test="to != null and to != ''">
+                to = #{to},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+        </set>
+        where id= #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteSceneDataId">
+        delete
+        from display.line
+        where sceneDataId= #{sceneDataId}
+    </delete>
+
+</mapper>

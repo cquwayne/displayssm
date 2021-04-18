@@ -4,19 +4,17 @@
 
     <resultMap type="com.paper.ssm.entity.Knowledge" id="KnowledgeMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="impact" column="impact" jdbcType="VARCHAR"/>
         <result property="conditions" column="conditions" jdbcType="VARCHAR"/>
-        <result property="envload" column="envLoad" jdbcType="VARCHAR"/>
-        <result property="datalist" column="dataList" jdbcType="VARCHAR"/>
+        <result property="sType" column="s_type" jdbcType="INTEGER"/>
+        <result property="sTitle" column="s_title" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="KnowledgeMap">
         select id,
-               impact,
                conditions,
-               envLoad,
-               dataList
+               s_type,
+               s_title
         from paper.knowledge
         where id = #{id}
     </select>
@@ -24,60 +22,69 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="KnowledgeMap">
         select id,
-               impact,
                conditions,
-               envLoad,
-               dataList
+               s_type,
+               s_title
         from paper.knowledge limit #{offset}, #{limit}
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="KnowledgeMap">
         select
-        id, impact, conditions, envLoad, dataList
+        id, conditions, s_type, s_title
         from paper.knowledge
+<!--        <where>-->
+<!--            <if test="id != null">-->
+<!--                and id = #{id}-->
+<!--            </if>-->
+<!--            <if test="conditions != null and conditions != ''">-->
+<!--                and conditions = #{conditions}-->
+<!--            </if>-->
+<!--            <if test="sType != null">-->
+<!--                and s_type = #{sType}-->
+<!--            </if>-->
+<!--            <if test="sTitle != null and sTitle != ''">-->
+<!--                and s_title = #{sTitle}-->
+<!--            </if>-->
+<!--        </where>-->
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.knowledge(impact, conditions, envLoad, dataList)
-        values (#{impact}, #{conditions}, #{envload}, #{datalist})
+        insert into paper.knowledge(conditions, s_type, s_title)
+        values (#{conditions}, #{sType}, #{sTitle})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.knowledge(impact, conditions, envLoad, dataList)
+        insert into paper.knowledge(conditions, s_type, s_title)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.impact}, #{entity.conditions}, #{entity.envload}, #{entity.datalist})
+            (#{entity.conditions}, #{entity.sType}, #{entity.sTitle})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into paper.knowledge(impact, conditions, envLoad, dataList)
+        insert into paper.knowledge(conditions, s_type, s_title)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.impact}, #{entity.conditions}, #{entity.envload}, #{entity.datalist})
+            (#{entity.conditions}, #{entity.sType}, #{entity.sTitle})
         </foreach>
         on duplicate key update
-        impact = values(impact) , conditions = values(conditions) , envLoad = values(envLoad) , dataList =
-        values(dataList)
+        conditions = values(conditions) , s_type = values(s_type) , s_title = values(s_title)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update paper.knowledge
         <set>
-            <if test="impact != null and impact != ''">
-                impact = #{impact},
-            </if>
             <if test="conditions != null and conditions != ''">
                 conditions = #{conditions},
             </if>
-            <if test="envload != null and envload != ''">
-                envLoad = #{envload},
+            <if test="sType != null">
+                s_type = #{sType},
             </if>
-            <if test="datalist != null and datalist != ''">
-                dataList = #{datalist},
+            <if test="sTitle != null and sTitle != ''">
+                s_title = #{sTitle},
             </if>
         </set>
         where id = #{id}

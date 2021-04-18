@@ -10,7 +10,7 @@ import java.util.List;
  * (Condition)表数据库访问层
  *
  * @author makejava
- * @since 2021-03-18 00:27:58
+ * @since 2021-03-21 15:28:12
  */
 @Mapper
 public interface ConditionDao {
@@ -18,10 +18,10 @@ public interface ConditionDao {
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
+     * @param cId 主键
      * @return 实例对象
      */
-    Condition queryById(Integer id);
+    Condition queryById(Integer cId);
 
     /**
      * 查询指定行数据
@@ -36,10 +36,11 @@ public interface ConditionDao {
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param condition 实例对象
+//     * @param condition 实例对象
      * @return 对象列表
      */
-    List<Condition> queryAll(Condition condition);
+//    List<Condition> queryAll(Condition condition);
+    List<Condition> queryAll();
 
     /**
      * 新增数据
@@ -76,9 +77,9 @@ public interface ConditionDao {
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
+     * @param cId 主键
      * @return 影响行数
      */
-    int deleteById(Integer id);
+    int deleteById(Integer cId);
 
 }
