@@ -5,7 +5,7 @@
     <resultMap type="com.paper.ssm.entity.SceneData" id="SceneDataMap">
         <result property="id" column="id" jdbcType="VARCHAR"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
-        <result property="category" column="category" jdbcType="INTEGER"/>
+        <result property="category" column="category" jdbcType="VARCHAR"/>
         <result property="hierarchy" column="hierarchy" jdbcType="VARCHAR"/>
         <result property="boundary" column="boundary" jdbcType="VARCHAR"/>
         <result property="function" column="function" jdbcType="VARCHAR"/>
@@ -18,7 +18,7 @@
     <resultMap type="com.paper.ssm.entity.SceneData" id="SceneDataSimpleMap">
         <result property="id" column="id" jdbcType="VARCHAR"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
-        <result property="category" column="category" jdbcType="INTEGER"/>
+        <result property="category" column="category" jdbcType="VARCHAR"/>
         <result property="hierarchy" column="hierarchy" jdbcType="VARCHAR"/>
         <result property="boundary" column="boundary" jdbcType="VARCHAR"/>
         <result property="function" column="function" jdbcType="VARCHAR"/>

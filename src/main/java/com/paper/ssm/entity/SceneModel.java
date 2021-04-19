@@ -4,7 +4,7 @@ package com.paper.ssm.entity;
  * (SceneModel)实体类
  *
  * @author makejava
- * @since 2021-04-17 10:47:43
+ * @since 2021-04-19 15:16:29
  */
 public class SceneModel {
     /**
@@ -31,6 +31,14 @@ public class SceneModel {
      * 场景描述
      */
     private String description;
+    /**
+     * 9000中的场景模型id
+     */
+    private Integer sceneModelId;
+    /**
+     * 9000中的输入帧模型id
+     */
+    private Integer inputFrameId;
 
 
     public String getId() {
@@ -79,6 +87,22 @@ public class SceneModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getSceneModelId() {
+        return sceneModelId;
+    }
+
+    public void setSceneModelId(Integer sceneModelId) {
+        this.sceneModelId = sceneModelId;
+    }
+
+    public Integer getInputFrameId() {
+        return inputFrameId;
+    }
+
+    public void setInputFrameId(Integer inputFrameId) {
+        this.inputFrameId = inputFrameId;
     }
 
 }

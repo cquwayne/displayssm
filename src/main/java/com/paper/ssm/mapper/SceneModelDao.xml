@@ -9,6 +9,8 @@
         <result property="operator" column="operator" jdbcType="VARCHAR"/>
         <result property="dataSource" column="data_source" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="sceneModelId" column="scene_model_id" jdbcType="INTEGER"/>
+        <result property="inputFrameId" column="input_frame_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
@@ -18,9 +20,11 @@
                parent_id,
                operator,
                data_source,
-               description
+               description,
+               scene_model_id,
+               input_frame_id
         from display.scene_model
-        where id = #{id}
+        where id= #{id}
     </select>
 
     <!--查询指定行数据-->
@@ -30,70 +34,88 @@
                parent_id,
                operator,
                data_source,
-               description
+               description,
+               scene_model_id,
+               input_frame_id
         from display.scene_model limit #{offset}, #{limit}
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="SceneModelMap">
         select
-        id, title, parent_id, operator, data_source, description
+        id, title, parent_id, operator, data_source, description, scene_model_id, input_frame_id
         from display.scene_model
-<!--        <where>-->
-<!--            <if test="id != null and id != ''">-->
-<!--                and id = #{id}-->
-<!--            </if>-->
-<!--            <if test="title != null and title != ''">-->
-<!--                and title = #{title}-->
-<!--            </if>-->
-<!--            <if test="parentId != null">-->
-<!--                and parent_id = #{parentId}-->
-<!--            </if>-->
-<!--            <if test="operator != null and operator != ''">-->
-<!--                and operator = #{operator}-->
-<!--            </if>-->
-<!--            <if test="dataSource != null and dataSource != ''">-->
-<!--                and data_source = #{dataSource}-->
-<!--            </if>-->
-<!--            <if test="description != null and description != ''">-->
-<!--                and description = #{description}-->
-<!--            </if>-->
-<!--        </where>-->
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="parentId != null and parentId != ''">
+                and parent_id = #{parentId}
+            </if>
+            <if test="operator != null and operator != ''">
+                and operator = #{operator}
+            </if>
+            <if test="dataSource != null and dataSource != ''">
+                and data_source = #{dataSource}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="sceneModelId != null">
+                and scene_model_id = #{sceneModelId}
+            </if>
+            <if test="inputFrameId != null">
+                and input_frame_id = #{inputFrameId}
+            </if>
+        </where>
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into display.scene_model(title, parent_id, operator, data_source, description)
-        values (#{title}, #{parentId}, #{operator}, #{dataSource}, #{description})
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into display.scene_model(id, title, parent_id, operator, data_source, description, scene_model_id,
+                                        input_frame_id)
+        values (#{id}, #{title}, #{parentId}, #{operator}, #{dataSource}, #{description}, #{sceneModelId},
+                #{inputFrameId})
     </insert>
 
-    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into display.scene_model(title, parent_id, operator, data_source, description)
+    <insert id="insertBatch" keyProperty="" useGeneratedKeys="true">
+        insert into display.scene_model(id, title, parent_id, operator, data_source, description, scene_model_id,
+        input_frame_id)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.title}, #{entity.parentId}, #{entity.operator}, #{entity.dataSource}, #{entity.description})
+            (#{entity.id}, #{entity.title}, #{entity.parentId}, #{entity.operator}, #{entity.dataSource},
+            #{entity.description}, #{entity.sceneModelId}, #{entity.inputFrameId})
         </foreach>
     </insert>
 
-    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into display.scene_model(title, parent_id, operator, data_source, description)
+    <insert id="insertOrUpdateBatch" keyProperty="" useGeneratedKeys="true">
+        insert into display.scene_model(id, title, parent_id, operator, data_source, description, scene_model_id,
+        input_frame_id)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.title}, #{entity.parentId}, #{entity.operator}, #{entity.dataSource}, #{entity.description})
+            (#{entity.id}, #{entity.title}, #{entity.parentId}, #{entity.operator}, #{entity.dataSource},
+            #{entity.description}, #{entity.sceneModelId}, #{entity.inputFrameId})
         </foreach>
         on duplicate key update
-        title = values(title) , parent_id = values(parent_id) , operator = values(operator) , data_source =
-        values(data_source) , description = values(description)
+        id = values(id) , title = values(title) , parent_id = values(parent_id) , operator = values(operator) ,
+        data_source = values(data_source) , description = values(description) , scene_model_id = values(scene_model_id)
+        , input_frame_id = values(input_frame_id)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update display.scene_model
         <set>
+            <if test="id != null and id != ''">
+                id = #{id},
+            </if>
             <if test="title != null and title != ''">
                 title = #{title},
             </if>
-            <if test="parentId != null">
+            <if test="parentId != null and parentId != ''">
                 parent_id = #{parentId},
             </if>
             <if test="operator != null and operator != ''">
@@ -105,15 +127,21 @@
             <if test="description != null and description != ''">
                 description = #{description},
             </if>
+            <if test="sceneModelId != null">
+                scene_model_id = #{sceneModelId},
+            </if>
+            <if test="inputFrameId != null">
+                input_frame_id = #{inputFrameId},
+            </if>
         </set>
-        where id = #{id}
+        where id= #{id}
     </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">
         delete
         from display.scene_model
-        where id = #{id}
+        where id= #{id}
     </delete>
 
 </mapper>

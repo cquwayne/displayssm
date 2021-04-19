@@ -20,7 +20,7 @@ public class SceneData {
     /**
      * 场景所属工艺类型
      */
-    private Integer category;
+    private String category;
     /**
      * 场景层级代表性
      */
@@ -59,11 +59,11 @@ public class SceneData {
         this.title = title;
     }
 
-    public Integer getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
