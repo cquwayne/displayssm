@@ -35,10 +35,10 @@ public interface SceneDataDao {
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param sceneData 实例对象
      * @return 对象列表
      */
-    List<SceneData> queryAll(SceneData sceneData);
+    List<SceneData> queryAll();
+//    List<SceneData> queryAll(SceneData sceneData);
 
     /**
      * 新增数据

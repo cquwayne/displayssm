@@ -43,6 +43,10 @@ public class SceneDataController {
     public SceneData selectOne(@RequestParam String id) {
         return this.sceneDataDao.queryById(id);
     }
+    @GetMapping("list")
+    public List<SceneData> selectAll() {
+        return this.sceneDataDao.queryAll();
+    }
 
     @PostMapping("/{id}")
     public int insertSceneData(SceneData sceneData) {

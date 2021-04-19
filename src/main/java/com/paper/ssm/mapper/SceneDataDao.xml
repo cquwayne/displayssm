@@ -15,6 +15,15 @@
         <collection column="id" property="lineList" ofType="com.paper.ssm.entity.Line"
                     javaType="java.util.ArrayList" select="com.paper.ssm.dao.LineDao.queryBySceneDataId"/>
     </resultMap>
+    <resultMap type="com.paper.ssm.entity.SceneData" id="SceneDataSimpleMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="category" column="category" jdbcType="INTEGER"/>
+        <result property="hierarchy" column="hierarchy" jdbcType="VARCHAR"/>
+        <result property="boundary" column="boundary" jdbcType="VARCHAR"/>
+        <result property="function" column="function" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="SceneDataMap">
@@ -42,33 +51,10 @@
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="SceneDataMap">
+    <select id="queryAll" resultMap="SceneDataSimpleMap">
         select
-        id, title, category, hierarchy, boundary, function, remark
+        id, title, category, `hierarchy`, boundary, `function`, remark
         from display.scene_data
-        <where>
-            <if test="id != null and id != ''">
-                and id = #{id}
-            </if>
-            <if test="title != null and title != ''">
-                and title = #{title}
-            </if>
-            <if test="category != null">
-                and category = #{category}
-            </if>
-            <if test="hierarchy != null and hierarchy != ''">
-                and hierarchy = #{hierarchy}
-            </if>
-            <if test="boundary != null and boundary != ''">
-                and boundary = #{boundary}
-            </if>
-            <if test="function != null and function != ''">
-                and function = #{function}
-            </if>
-            <if test="remark != null and remark != ''">
-                and remark = #{remark}
-            </if>
-        </where>
     </select>
 
     <!--新增所有列-->
