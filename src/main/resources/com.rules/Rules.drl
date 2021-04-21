@@ -1,0 +1,52 @@
+package com.rules
+
+import com.paper.ssm.entity.*
+
+//global Conclusion globalConclusion;
+//declare Conclusion
+////    熔化效率
+//    meltingEfficiency: Float
+////    焦炭反应性
+//    cokeReactivity: Float
+//end
+
+rule A
+    when
+        $dsp: DataScene(category == "湿砂型")
+//        $eng: (EnergyData(value > 0 ) from $dsp.energyDataList)
+//        (DeviceData(workTime >= 0) from $dsp.deviceDataList)
+        exists($dsps: DataScene()&&EnergyData(value > 0 , value < 300) from $dsp.energyDataList)
+    then
+        System.out.println($dsps.getTitle());
+//        Conclusion conclusion = new Conclusion();
+//        conclusion.setMeltingEfficiency(0.55f);
+//        System.out.println(conclusion.getMeltingEfficiency());
+//        insert(conclusion);
+    end
+rule B
+    when
+        $dataScene: DataScene(title == "铸铁-铸钢-有色金属-湿砂型铸造(静压KW线)-熔炼" && category == "湿砂型")
+    then
+        System.out.println("bingo2");
+    end
+rule C
+    when
+        Conclusion(meltingEfficiency > 0.5 && meltingEfficiency < 0.6)
+    then
+        System.out.println("ok");
+    end
+
+
+//rule D
+//    when
+//        $dataScene: DataScene(title == "")
+//    then
+//
+//    end
+//rule E
+//    when
+//        $dataScene: DataScene(title == "")
+//    then
+//
+//    end
+
