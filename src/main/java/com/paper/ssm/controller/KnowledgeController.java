@@ -13,6 +13,8 @@ import org.kie.api.runtime.KieSession;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -56,17 +58,12 @@ public class KnowledgeController {
         KieContainer kieContainer = ks.getKieClasspathContainer();
         // 获取kmodule.xml中配置中名称为kSessionRule的session，默认为有状态的。
         KieSession kSession = kieContainer.newKieSession("kSessionRule");
-//        DataScene ds = new DataScene();
-//        ds.setTitle("你好");
-//        kSession.insert(ds);
-//        Device device = new Device();
-//        device.setId(90);
-//        kSession.insert(device);
         DataScene dataScene = JSON.parseObject(sceneData.substring(13,sceneData.length()-1)).toJavaObject(DataScene.class);
         kSession.insert(dataScene);
         Conclusion conclusion = new Conclusion();
+        List<HashMap<List<String>,String>> featureList = new ArrayList<>();
         kSession.insert(conclusion);
-//        kSession.setGlobal("globalConclusion", conclusion);
+        kSession.setGlobal("featureList", featureList);
         int count = kSession.fireAllRules();
         System.out.println("命中了" + count + "条规则！");
 
