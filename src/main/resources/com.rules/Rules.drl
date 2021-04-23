@@ -2,9 +2,9 @@ package com.rules
 
 import com.paper.ssm.entity.*
 import java.util.*
-import org.mvel2.util.Make
 
-global java.util.List featureList;
+global LinkedHashMap featureList;
+
 //declare Conclusion
 ////    熔化效率
 //    meltingEfficiency: Float
@@ -15,7 +15,7 @@ global java.util.List featureList;
 rule A
     when
         $dsp: DataScene(title == "铸铁-铸钢-有色金属-湿砂型铸造(静压KW线)-熔炼" && category == "湿砂型")
-        (DeviceData(device.usage=="中频电炉") from $dsp.deviceDataList)
+        (DeviceData(device.usage == "中频电炉") from $dsp.deviceDataList)
     then
         Conclusion conclusion = new Conclusion();
         conclusion.setMeltingEfficiency(0.55f);
@@ -29,24 +29,20 @@ rule B
         Conclusion(cokeReactivity > 0.5 && cokeReactivity < 0.6)
     then
         String[] datas = {"废钢消耗","生铁消耗","焦炭消耗"};
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add(datas[0]);
-        arrayList.add(datas[1]);
-        arrayList.add(datas[2]);
-        HashMap<ArrayList<String>,String> hashMap = new HashMap<>();
-        hashMap.put(arrayList,"add");
-        featureList.add(hashMap);
-        arrayList.clear();
-        hashMap.clear();
-        arrayList.add(datas[2]);
-        arrayList.add(datas[0]);
-        hashMap.put(arrayList,"div");
-        arrayList.clear();
-        hashMap.clear();
-        arrayList.add(datas[2]);
-        arrayList.add(datas[1]);
-        hashMap.put(arrayList,"div");
-        featureList.add(hashMap);
+        ArrayList<String> arrayList0 = new ArrayList<>();
+        arrayList0.add(datas[0]);
+        arrayList0.add(datas[1]);
+        arrayList0.add(datas[2]);
+        featureList.put(arrayList0,"add");
+//        ArrayList<String> arrayList1 = new ArrayList<>();
+//        arrayList1.clear();
+//        arrayList1.add(datas[2]);
+//        arrayList1.add(datas[0]);
+//        featureList.put(arrayList1,"div");
+//        ArrayList<String> arrayList2 = new ArrayList<>();
+//        arrayList2.add(datas[2]);
+//        arrayList2.add(datas[1]);
+//        featureList.put(arrayList2,"div");
     end
 rule C
     when

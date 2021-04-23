@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -32,6 +33,9 @@ public class KnowledgeController {
      */
     @Resource
     private KnowledgeDao knowledgeDao;
+
+    @Resource
+    private Deal deal;
 
     /**
      * 通过主键查询单条数据
@@ -51,7 +55,7 @@ public class KnowledgeController {
 
     @PostMapping("inference")
 //    public void knowledgeInference() {
-    public void knowledgeInference(@RequestBody String sceneData) {
+    public void knowledgeInference(@RequestBody String sceneData) throws Exception {
 //        System.out.println(dataScene);
         // 构建KieServices
         KieServices ks = KieServices.Factory.get();
@@ -61,11 +65,12 @@ public class KnowledgeController {
         DataScene dataScene = JSON.parseObject(sceneData.substring(13,sceneData.length()-1)).toJavaObject(DataScene.class);
         kSession.insert(dataScene);
         Conclusion conclusion = new Conclusion();
-        List<HashMap<List<String>,String>> featureList = new ArrayList<>();
+        LinkedHashMap<List<String>,String> featureList = new LinkedHashMap<>();
         kSession.insert(conclusion);
         kSession.setGlobal("featureList", featureList);
         int count = kSession.fireAllRules();
         System.out.println("命中了" + count + "条规则！");
+        deal.dealWith(featureList);
 
     }
 
