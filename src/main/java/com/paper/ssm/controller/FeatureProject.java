@@ -21,7 +21,7 @@ public class FeatureProject {
 
 //    @Resource
 //    ConditionController conditionController;
-//
+
 //    @Resource
 //    FeatureController featureController;
 
@@ -30,9 +30,6 @@ public class FeatureProject {
 
     @Resource
     PetriController petriController;
-
-//    @Resource
-//    ModelEntityDao modelEntityDao;
 
     @Resource
     KnowledgeDao knowledgeDao;

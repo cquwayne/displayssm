@@ -33,16 +33,19 @@ rule B
         arrayList0.add(datas[0]);
         arrayList0.add(datas[1]);
         arrayList0.add(datas[2]);
+        arrayList0.add("炉料总量");
         featureList.put(arrayList0,"add");
-//        ArrayList<String> arrayList1 = new ArrayList<>();
-//        arrayList1.clear();
-//        arrayList1.add(datas[2]);
-//        arrayList1.add(datas[0]);
-//        featureList.put(arrayList1,"div");
-//        ArrayList<String> arrayList2 = new ArrayList<>();
-//        arrayList2.add(datas[2]);
-//        arrayList2.add(datas[1]);
-//        featureList.put(arrayList2,"div");
+        ArrayList<String> arrayList1 = new ArrayList<>();
+        arrayList1.clear();
+        arrayList1.add(datas[2]);
+        arrayList1.add(datas[0]);
+        arrayList1.add("焦钢比");
+        featureList.put(arrayList1,"div");
+        ArrayList<String> arrayList2 = new ArrayList<>();
+        arrayList2.add(datas[2]);
+        arrayList2.add(datas[1]);
+        arrayList2.add("焦铁比");
+        featureList.put(arrayList2,"div");
     end
 rule C
     when
