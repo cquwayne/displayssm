@@ -4,6 +4,7 @@ import com.paper.ssm.entity.*
 import java.util.*
 
 global LinkedHashMap featureList;
+global ArrayList knowledgeList;
 
 //declare Conclusion
 ////    熔化效率
@@ -21,6 +22,7 @@ rule A
         conclusion.setMeltingEfficiency(0.55f);
         conclusion.setCokeReactivity(0.55f);
         insert(conclusion);
+        knowledgeList.add("IF 工艺类型为湿砂型&&过程类型为熔炼&&设备类型为中频电炉 THEN 熔化效率为55%&&过热效率介于55%");
     end
 rule B
     when
@@ -46,6 +48,7 @@ rule B
         arrayList2.add(datas[1]);
         arrayList2.add("焦铁比");
         featureList.put(arrayList2,"div");
+        knowledgeList.add("IF 过热效率介于50%-60% THEN 负荷特征：炉料总量;焦钢比;焦铁比");
     end
 rule C
     when

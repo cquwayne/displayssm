@@ -1,5 +1,7 @@
 package com.paper.ssm.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.paper.ssm.dao.LineDao;
 import com.paper.ssm.dao.NodeDao;
 import com.paper.ssm.dao.SceneDataDao;
@@ -12,6 +14,7 @@ import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -91,7 +94,7 @@ public class SceneDataController {
     }
 
     @GetMapping("/compute")
-    public int computeModel(@RequestParam String sceneTitle) throws Exception {
+    public List<String> computeModel(@RequestParam String sceneTitle) throws Exception {
 
         try {
             System.out.println(sceneTitle);
@@ -100,19 +103,46 @@ public class SceneDataController {
             // 用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"GBK"));
             String line = null;
+            List<String> predictList = new ArrayList<>();
             while ((line = in.readLine()) != null) {
                 if (line.equals("finish")) {
                     break;
-                } else {
+                } else if (line.contains("Index")){
+                    while (!line.contains("]")) {
+                        String nextLine = in.readLine();
+                        nextLine = nextLine.substring(nextLine.indexOf('\''));
+                        line = line + nextLine;
+                    }
+                    String[] predict = line.substring(line.lastIndexOf('[')+1,line.lastIndexOf(']')).split(",");
+                    for (int i=0;i<predict.length;i++) {
+                        predictList.add(predict[i].substring(predict[i].indexOf('\''),predict[i].length()-1));
+                    }
+                }else {
                     System.out.println(line);
                 }
             }
             in.close();
             proc.waitFor();
-            return 1;
+            return predictList;
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return null;
         }
+    }
+
+    @PostMapping("/featureCompute")
+    public double featureCompute(@RequestBody String body) throws Exception {
+        JSONObject jsonObject = JSON.parseObject(body);
+        String sceneTitle = jsonObject.get("sceneTitle").toString();
+        String featureList = jsonObject.get("featureList").toString();
+        String[] args = new String[]{"python", "D:\\PycharmProjects\\pythonProject\\predictEnvLoad.py", sceneTitle, featureList};
+        Process proc = Runtime.getRuntime().exec(args);
+        // 用输入输出流来截取结果
+        BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"GBK"));
+        String line = null;
+        while ((line = in.readLine()) != null) {
+            System.out.println(line);
+        }
+        return 1.0;
     }
 }
