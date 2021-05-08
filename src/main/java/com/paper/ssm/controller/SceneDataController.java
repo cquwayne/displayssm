@@ -113,7 +113,7 @@ public class SceneDataController {
                     }
                     String[] predict = line.substring(line.lastIndexOf('[')+1,line.lastIndexOf(']')).split(",");
                     for (int i=0;i<predict.length;i++) {
-                        predictList.add(predict[i].substring(predict[i].indexOf('\''),predict[i].length()-1));
+                        predictList.add(predict[i].substring(predict[i].indexOf('\'')+1, predict[i].length()-1));
                     }
                 }else {
                     System.out.println(line);
