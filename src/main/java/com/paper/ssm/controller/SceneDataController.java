@@ -11,9 +11,7 @@ import com.paper.ssm.entity.SceneData;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,17 +130,28 @@ public class SceneDataController {
 
     @PostMapping("/featureCompute")
     public double featureCompute(@RequestBody String body) throws Exception {
+
+        double predictValue = 0.0;
         JSONObject jsonObject = JSON.parseObject(body);
         String sceneTitle = jsonObject.get("sceneTitle").toString();
         String featureList = jsonObject.get("featureList").toString();
+        featureList = JSON.toJSONString(featureList);
         String[] args = new String[]{"python", "D:\\PycharmProjects\\pythonProject\\predictEnvLoad.py", sceneTitle, featureList};
-        Process proc = Runtime.getRuntime().exec(args);
-        // 用输入输出流来截取结果
-        BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"GBK"));
-        String line = null;
-        while ((line = in.readLine()) != null) {
-            System.out.println(line);
+        try{
+            Process proc = Runtime.getRuntime().exec(args);
+            // 用输入输出流来截取结果
+            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"GBK"));
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                if (line.equals("finish")) {
+                    line = in.readLine();
+                    predictValue = Double.parseDouble(line);
+                    break;
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
-        return 1.0;
+        return predictValue;
     }
 }
