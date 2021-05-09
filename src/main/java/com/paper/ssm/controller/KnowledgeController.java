@@ -6,12 +6,19 @@ import com.paper.ssm.entity.Conclusion;
 import com.paper.ssm.entity.DataScene;
 import com.paper.ssm.entity.Knowledge;
 import com.paper.ssm.entity.KnowledgeResult;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -90,6 +97,33 @@ public class KnowledgeController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @GetMapping("dataIndexes")
+    public List<String> selectDataIndexes(@RequestParam String sceneDataTitle, @RequestParam String index) throws IOException {
+
+        ArrayList<String> indexes = new ArrayList<>();
+        String fileName = null;
+        /*
+          读取原始数据集合所在的Excel文件
+         */
+        if (index.equals("originalIndexes")) {
+            fileName = "D:\\display\\displayvue\\static\\" + sceneDataTitle + ".xlsx";
+        } else {
+            fileName = "D:\\display\\displayvue\\static\\" + sceneDataTitle + "train.xlsx";
+        }
+        File file = new File(fileName);
+        XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(file));
+//        两种方式读取工作表
+        Sheet sheet = workbook.getSheetAt(0);
+//        获取第一行的数据
+        Row row = sheet.getRow(0);
+//        获取第一行所有数据项的个数（第一行的列数）
+        int colsNum = row.getLastCellNum();
+        for (int i=0;i<colsNum;i++) {
+            indexes.add(row.getCell(i).getStringCellValue());
+        }
+        return indexes;
     }
 
 
